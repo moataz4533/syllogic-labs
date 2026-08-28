@@ -10,6 +10,7 @@ import {
 import { ar } from "./ar";
 import { en, type Messages } from "./en";
 import { es } from "./es";
+import { extra } from "./extra";
 import { fr } from "./fr";
 import { it } from "./it";
 import {
@@ -19,7 +20,25 @@ import {
   type Locale,
 } from "./locales";
 
-const catalog: Record<Locale, Messages> = { en, ar, es, fr, it };
+function withExtra(base: Messages): Messages {
+  const row = base as Messages & { approach?: unknown; systems?: unknown; lab?: unknown };
+  if (row.approach && row.systems && row.lab) return base;
+  return {
+    ...base,
+    ...extra,
+    nav: { ...base.nav, ...extra.nav },
+    hero: extra.hero,
+    footer: { ...base.footer, ...extra.footer },
+  } as Messages;
+}
+
+const catalog: Record<Locale, Messages> = {
+  en: withExtra(en),
+  ar: withExtra(ar),
+  es: withExtra(es),
+  fr: withExtra(fr),
+  it: withExtra(it),
+};
 
 type I18nContextValue = {
   locale: Locale;
@@ -33,7 +52,7 @@ const I18nContext = createContext<I18nContextValue | null>(null);
 const fallback: I18nContextValue = {
   locale: "en",
   dir: "ltr",
-  t: en,
+  t: catalog.en,
   setLocale: () => {},
 };
 
