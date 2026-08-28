@@ -1,5 +1,8 @@
 {
   "buildCommand": "npx vite build",
   "installCommand": "npm install",
-  "framework": "vite"
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/media/:file.jpg", "destination": "/media/:file.svg" }
+  ]
 }
