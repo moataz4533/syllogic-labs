@@ -30,23 +30,33 @@ export function Reveal({
 export function SplitTitle({
   text,
   className,
+  mode = "words",
 }: {
   text: string;
   className?: string;
+  mode?: "words" | "lines";
 }) {
   const reduce = useReducedMotion();
-  const words = text.split(" ");
+  const parts =
+    mode === "lines"
+      ? text
+          .split("\n")
+          .map((part) => part.trim())
+          .filter(Boolean)
+      : text.split(" ");
+  const stacked = mode === "lines";
+
   return (
-    <h1 className={cn("flex flex-wrap", className)}>
-      {words.map((word, i) => (
+    <h1 className={cn(stacked ? "flex flex-col gap-1" : "flex flex-wrap", className)}>
+      {parts.map((part, i) => (
         <motion.span
-          key={`${word}-${i}`}
-          className="me-[0.28em] inline-block"
+          key={`${part}-${i}`}
+          className={stacked ? "block" : "me-[0.28em] inline-block"}
           initial={reduce ? false : { opacity: 0, y: 28, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ delay: 0.06 + i * 0.038, duration: 0.62, ease }}
+          transition={{ delay: 0.06 + i * (stacked ? 0.12 : 0.038), duration: 0.62, ease }}
         >
-          {word}
+          {part}
         </motion.span>
       ))}
     </h1>

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { SplitTitle } from "@/components/motion/reveal";
 import { useI18n } from "@/lib/i18n";
 import { useUi } from "@/lib/ui-store";
+import { cn } from "@/lib/utils";
 
 export function Hero() {
   const reduce = useReducedMotion();
@@ -12,6 +13,7 @@ export function Hero() {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 560], [0, reduce ? 0 : 90]);
   const scale = useTransform(scrollY, [0, 560], [1, reduce ? 1 : 1.12]);
+  const stackedTitle = locale === "ar" || t.hero.title.includes("\n");
 
   return (
     <section className="relative isolate min-h-[100dvh] overflow-hidden">
@@ -32,10 +34,18 @@ export function Hero() {
         <div key={locale} className="mt-4">
           <SplitTitle
             text={t.hero.title}
-            className="max-w-3xl font-display text-[2.6rem] font-semibold leading-[1.05] tracking-[-0.04em] text-fg sm:text-6xl lg:text-7xl"
+            mode={stackedTitle ? "lines" : "words"}
+            className="max-w-3xl font-display text-[2.6rem] font-semibold leading-[1.12] tracking-[-0.04em] text-fg sm:text-6xl lg:text-7xl"
           />
         </div>
-        <p className="mt-5 max-w-md text-base text-fg/80 sm:text-lg">{t.hero.body}</p>
+        <p
+          className={cn(
+            "mt-5 text-base text-fg/80 sm:text-lg",
+            locale === "ar" ? "max-w-xl leading-[1.75]" : "max-w-md",
+          )}
+        >
+          {t.hero.body}
+        </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
           <a href="#systems" className="inline-flex">
             <Button size="lg" className="w-full sm:w-auto">
@@ -56,7 +66,10 @@ export function Hero() {
           {t.hero.stats.map((item) => (
             <li
               key={item.k}
-              className="rounded-full bg-void/55 px-3.5 py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-fg shadow-hairline backdrop-blur-md"
+              className={cn(
+                "rounded-full bg-void/55 px-3.5 py-2 font-mono text-[11px] text-fg shadow-hairline backdrop-blur-md",
+                locale === "ar" ? "tracking-normal" : "uppercase tracking-[0.14em]",
+              )}
             >
               <span className="text-accent">{item.v}</span>
               <span className="ms-2 text-muted">{item.k}</span>
