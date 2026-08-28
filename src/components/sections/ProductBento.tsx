@@ -9,19 +9,19 @@ export function ProductBento() {
   const { t } = useI18n();
 
   return (
-    <section id="suite" className="relative z-10 px-5 py-16 sm:px-8 sm:py-24">
+    <section id="systems" className="relative z-10 px-5 py-16 sm:px-8 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <Reveal>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-accent">
-                {t.suite.kicker}
+                {t.systems.kicker}
               </p>
               <h2 className="mt-2 font-display text-3xl font-semibold text-fg sm:text-4xl">
-                {t.suite.title}
+                {t.systems.title}
               </h2>
             </div>
-            <p className="max-w-sm text-sm text-muted">{t.suite.body}</p>
+            <p className="max-w-sm text-sm text-muted">{t.systems.body}</p>
           </div>
         </Reveal>
 
@@ -63,7 +63,7 @@ export function ProductBento() {
                         {p.name}
                       </h3>
                       <p className="mt-2 max-w-md text-sm text-fg/75 line-clamp-2">
-                        {copy.summary}
+                        {copy.relation}
                       </p>
                     </div>
                     <span className="hidden size-11 shrink-0 items-center justify-center rounded-full bg-fg text-void sm:inline-flex">
