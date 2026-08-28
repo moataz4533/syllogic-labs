@@ -1,8 +1,5 @@
 {
-  "buildCommand": "npx vite build",
+  "buildCommand": "node scripts/assemble-media.mjs && npx vite build",
   "installCommand": "npm install",
-  "framework": "vite",
-  "rewrites": [
-    { "source": "/media/:file.jpg", "destination": "/media/:file.svg" }
-  ]
+  "framework": "vite"
 }
