@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 
 export function ProductBento() {
   const { t } = useI18n();
+  const systems = t.systems ?? t.suite;
 
   return (
     <section id="systems" className="relative z-10 px-5 py-16 sm:px-8 sm:py-24">
@@ -15,13 +16,13 @@ export function ProductBento() {
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-accent">
-                {t.systems.kicker}
+                {systems.kicker}
               </p>
               <h2 className="mt-2 font-display text-3xl font-semibold text-fg sm:text-4xl">
-                {t.systems.title}
+                {systems.title}
               </h2>
             </div>
-            <p className="max-w-sm text-sm text-muted">{t.systems.body}</p>
+            <p className="max-w-sm text-sm text-muted">{systems.body}</p>
           </div>
         </Reveal>
 
@@ -56,14 +57,10 @@ export function ProductBento() {
                   </div>
                   <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 sm:p-7">
                     <div>
-                      <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent">
-                        {copy.tag}
-                      </p>
-                      <h3 className="mt-1 font-display text-2xl font-semibold text-fg sm:text-3xl">
-                        {p.name}
-                      </h3>
+                      <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent">{copy.tag}</p>
+                      <h3 className="mt-1 font-display text-2xl font-semibold text-fg sm:text-3xl">{p.name}</h3>
                       <p className="mt-2 max-w-md text-sm text-fg/75 line-clamp-2">
-                        {copy.relation}
+                        {copy.relation ?? copy.summary}
                       </p>
                     </div>
                     <span className="hidden size-11 shrink-0 items-center justify-center rounded-full bg-fg text-void sm:inline-flex">

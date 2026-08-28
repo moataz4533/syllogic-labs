@@ -6,6 +6,8 @@ const icons = [Brain, Coins, Layers3] as const;
 
 export function Thesis() {
   const { t } = useI18n();
+  const copy = t.approach;
+  if (!copy) return null;
 
   return (
     <section id="approach" className="relative z-10 px-5 py-16 sm:px-8 sm:py-24">
@@ -21,20 +23,18 @@ export function Thesis() {
               <div className="absolute inset-0 bg-gradient-to-t from-void via-void/50 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
                 <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-accent">
-                  {t.approach.kicker}
+                  {copy.kicker}
                 </p>
                 <h2 className="mt-2 max-w-lg font-display text-3xl font-semibold text-fg sm:text-4xl">
-                  {t.approach.title}
+                  {copy.title}
                 </h2>
-                <p className="mt-3 max-w-md text-sm text-fg/75 sm:text-base">
-                  {t.approach.body}
-                </p>
+                <p className="mt-3 max-w-md text-sm text-fg/75 sm:text-base">{copy.body}</p>
               </div>
             </div>
           </Reveal>
 
           <div className="grid grid-cols-1 gap-3">
-            {t.approach.pillars.map((p, i) => {
+            {copy.pillars.map((p, i) => {
               const Icon = icons[i] ?? Brain;
               return (
                 <Reveal key={p.title} delay={i * 0.06}>
@@ -42,9 +42,7 @@ export function Thesis() {
                     <div className="flex size-10 items-center justify-center rounded-xl bg-void text-accent shadow-hairline">
                       <Icon className="size-4" />
                     </div>
-                    <h3 className="mt-4 font-display text-lg font-semibold text-fg">
-                      {p.title}
-                    </h3>
+                    <h3 className="mt-4 font-display text-lg font-semibold text-fg">{p.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-muted">{p.body}</p>
                   </article>
                 </Reveal>
