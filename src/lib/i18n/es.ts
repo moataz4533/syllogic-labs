@@ -1,2 +1,345 @@
-import { en, type Messages } from "./en";
-export const es: Messages = en;
+import type { Messages } from "./en";
+
+export const es: Messages = {
+  nav: {
+    approach: "Enfoque",
+    systems: "Sistemas",
+    stack: "Stack",
+    synergy: "Costora × Menura",
+    suite: "Sistemas",
+    bespoke: "A medida",
+    contact: "Contacto",
+    book: "Abrir un brief",
+    live: "Sistemas en vivo",
+    modules: "Sistemas",
+    skip: "Saltar al contenido",
+    closeMenu: "Cerrar menú",
+    openMenu: "Abrir menú",
+  },
+  hero: {
+    kicker: "Syllogic Labs",
+    title: "Sistemas inteligentes para cualquier negocio.",
+    body: "Diseñamos software operativo inteligente — disciplinado por datos, IA donde paga, al costo del tamaño del trabajo.",
+    cta: "Ver los sistemas",
+    ctaAlt: "Abrir un brief",
+    scroll: "Cómo pensamos",
+    stats: [
+      { k: "En vivo", v: "03" },
+      { k: "En el lab", v: "Más" },
+      { k: "IA en stack", v: "Sí" },
+      { k: "Costo", v: "Acotado" },
+    ],
+  },
+  approach: {
+    kicker: "Enfoque",
+    title: "Soluciones inteligentes. Costo inteligente.",
+    body: "A la mayoría le venden una plataforma que nunca llenarán. Construimos el sistema que la operación puede correr — y la factura se mantiene honesta.",
+    pillars: [
+      {
+        title: "Inteligencia en el trabajo",
+        body: "Modelos de coste en vivo, constraints de base de datos, OCR y Vercel AI SDK — donde pagan, nunca como decoración.",
+      },
+      {
+        title: "El costo es una regla de diseño",
+        body: "Acotado al volumen. Sin impuesto enterprise para un operador pequeño. Costo de estudio, ingeniería senior.",
+      },
+      {
+        title: "Un lab, no un monolito",
+        body: "Cada sistema se sostiene solo. Acoplamos solo cuando el contrato de datos está probado. Hoy: Costora × Menura. Nada más viene cableado.",
+      },
+    ],
+  },
+  systems: {
+    kicker: "En producción",
+    title: "Sistemas independientes. Un catálogo que crecerá.",
+    body: "Costora y Menura pueden acoplarse. EasyRoom y Ledger no. Los próximos productos serán sistemas propios.",
+  },
+  stack: {
+    kicker: "Ingeniería",
+    title: "El stack que realmente entregamos.",
+    body: "Leído de los repos — no de una slide. TypeScript, Postgres e IA aplicada en producción hoy.",
+    groups: {
+      intelligence: "Inteligencia",
+      data: "Datos y confianza",
+      surface: "Superficie de producto",
+      delivery: "Entrega y bordes",
+    },
+  },
+  lab: {
+    kicker: "El lab",
+    title: "Esta es la primera ola.",
+    body: "Syllogic es una empresa joven con una lista larga. Lo que está en vivo es el inicio — no el techo.",
+    incoming: [
+      { tag: "05 · Diseño", title: "Siguiente sistema vertical", body: "Otro producto independiente, acotado a una operación primero." },
+      { tag: "06 · Research", title: "Inteligencia aplicada", body: "Decisiones con modelos sobre los datos que ya tenemos." },
+      { tag: "07 · Custom", title: "Tu operación", body: "Si el catálogo no cubre el trabajo, igual construimos el sistema." },
+    ],
+  },
+  synergy: {
+    kicker: "Costora × Menura",
+    title: "Por separado funcionan. Sincronizados se multiplican.",
+    body: "Cambia el precio de un proveedor en Costora. En modo independiente, el menú QR no se entera. Sincronizado, Menura hereda el precio costeado antes del próximo escaneo.",
+    standalone: "Independiente",
+    synced: "Sincronizado",
+    recipe: "Receta",
+    dish: "Risotto de setas silvestres",
+    liveMatrix: "Matriz en vivo",
+    ingredient: "Arroz arborio",
+    perKg: "/kg",
+    portionCost: "Coste de ración",
+    target: "Objetivo 28%",
+    guestMenu: "Menú del huésped",
+    floorPrice: "Precio en sala",
+    foodCost: "Coste de comida",
+    stale: "Impresión vieja",
+    live: "En vivo",
+    protected: "Protegido",
+    exposed: "Expuesto",
+    standaloneLog: [
+      "Costora costeó el risotto con el arroz en vivo.",
+      "Menura sigue sirviendo la última impresión: $22.00.",
+      "Margen desprotegido en sala.",
+    ],
+    syncedLog: [
+      "Costora: arroz arborio {price}/kg.",
+      "Venta sugerida {sell} al 28% de food cost.",
+      "Menú de Menura actualizado en el mismo ticket.",
+    ],
+  },
+  suite: {
+    kicker: "La suite",
+    title: "Cuatro sistemas. Un tejido.",
+    body: "Toca un fotograma. Cada uno es un producto en vivo.",
+    talk: "Hablemos",
+    explore: "Explorar",
+    openProduct: "Abrir producto en vivo",
+  },
+  products: {
+    costora: {
+      tag: "Coste e ingeniería de recetas",
+      badge: "En vivo · independiente",
+      relation: "Independiente. Acoplamiento opcional con Menura.",
+      summary:
+        "Control de costes de restaurante: inventario, coste de recetas, ingeniería de menú, compras, merma, personal y prime cost — nueve idiomas, árabe RTL nativo, offline como PWA.",
+      description:
+        "Costora es la capa de ingeniería bajo el menú. Precia cada receta desde una matriz de ingredientes en vivo, descuenta stock, compara cotizaciones de proveedores y muestra merma, personal y prime cost por sucursal. La seguridad es RLS de Postgres. El modo local es una PWA offline completa; los locales con cuenta sincronizan con roles de dueño, manager, chef y almacén.",
+      features: [
+        "Coste dinámico de recetas y mise en place",
+        "Inventario, conteos, compras y comparación de cotizaciones",
+        "Cuadros de merma, variación, personal y prime cost",
+        "Nueve idiomas con árabe RTL — nube u offline PWA",
+      ],
+      outcomes: [
+        { label: "Idiomas", value: "9 · RTL" },
+        { label: "Modo", value: "Nube + offline" },
+        { label: "Seguridad", value: "RLS en Postgres" },
+      ],
+      brief:
+        "Leído del repo de Costora. v0.11.1 vive en costora.co: app multilingüe de control de costes (inventario, recetas, menú, compras, merma, personal, sucursales). El aislamiento de inquilino se impone en la base. Dodo Payments está cableado y apagado hasta probar el flujo. Menura ya comparte identidad, cuentas y sucursales.",
+      facts: [
+        "En vivo en costora.co · v0.11.1",
+        "9 idiomas, árabe RTL nativo",
+        "PWA — offline completo en modo local",
+        "Roles: dueño, manager, chef, almacén — en SQL",
+        "Identidad compartida con Menura, contratos de datos separados",
+      ],
+    },
+    menura: {
+      tag: "Experiencia digital del huésped",
+      badge: "En vivo · independiente",
+      relation: "Independiente. Acoplamiento opcional con Costora.",
+      summary:
+        "Menú QR y motor de pedidos para restaurantes y cafés — doce temas, seis idiomas, QR por mesa, llamada al camarero, WhatsApp e importación PDF en el dispositivo.",
+      description:
+        "Menura pone el menú actual en la mano del huésped. Tema, tipografía, radio y densidad son datos, no código. Cuatro modos de pedido. Cada mesa tiene su QR. La llamada al camarero está ligada a un token de mesa activo y limitada en la base. Las tablas del menú son privadas: la página pública lee una sola RPC.",
+      features: [
+        "QR por mesa, 12 temas, 6 idiomas con detección",
+        "Llamada al camarero con límites en base de datos",
+        "WhatsApp, carrito local, sala y para llevar",
+        "Importación PDF, CSV, JSON y OCR en el dispositivo",
+      ],
+      outcomes: [
+        { label: "Temas", value: "12" },
+        { label: "Modos de pedido", value: "4" },
+        { label: "Datos públicos", value: "Una RPC" },
+      ],
+      brief:
+        "Del repo de Menura: módulo independiente dentro del sistema Costora, con fronteras de datos estrictas. El esquema del menú no se expone al navegador. Costora y Menura comparten login y sucursales; no leen las tablas del otro en silencio. La sincronización de coste y margen es un contrato futuro explícito.",
+      facts: [
+        "Menú público vía una sola RPC — lo no publicado no se ve",
+        "12 temas; el contraste se calcula, no se adivina",
+        "WhatsApp envía nombres en árabe para que la cocina entienda",
+        "El equipo de servicio empareja un dispositivo sin permisos de menú",
+        "La importación PDF corre en el dispositivo, OCR incluido",
+      ],
+    },
+    easyroom: {
+      tag: "PMS para propiedades boutique",
+      badge: "En vivo · independiente",
+      relation: "Sistema aparte. No cableado a Costora ni Menura.",
+      summary:
+        "Habitaciones y reservas para hoteles independientes. El doble booking es imposible. Ocupación y housekeeping son ejes distintos. Primero pensado para The Greek Club en Dahab.",
+      description:
+        "EasyRoom es un PMS a escala de operador independiente. Toda razón de indisponibilidad vive en una tabla con una exclusion constraint de Postgres. El precio es una matriz. Housekeeping ve limpio/sucio independiente de ocupado/vacío. Crear una reserva no funciona offline a propósito. Las cancelaciones piden un PIN de manager hasheado en una tabla sin políticas de lectura.",
+      features: [
+        "Tape chart a 7, 14 o 30 días",
+        "Exclusion constraint — el doble booking es un error de base",
+        "Tarifas de temporada, extras, historial, WhatsApp",
+        "Árabe + inglés, roles hasta housekeeping sin acceso al dinero",
+      ],
+      outcomes: [
+        { label: "Primera propiedad", value: "Dahab" },
+        { label: "Doble booking", value: "Imposible" },
+        { label: "Reserva offline", value: "Rechazada" },
+      ],
+      brief:
+        "Del repo de EasyRoom. Primero para The Greek Club en Dahab: logo, colores y tarifas son filas, el segundo hotel es alta de datos, no un fork. Ocupación y housekeeping se separan a propósito. No se construye un channel manager. La contabilidad se exporta, no se sustituye.",
+      facts: [
+        "Agnóstico de propiedad: el primer hotel no está hardcodeado",
+        "Una sola constraint cubre toda indisponibilidad",
+        "La tarifa es función de tipo, ocupación, plan y fecha",
+        "Housekeeping no ve dinero ni datos del huésped",
+        "PIN de manager: cinco fallos bloquean quince minutos",
+      ],
+    },
+    ledger: {
+      tag: "Hub de contabilidad autónoma",
+      badge: "Módulo interno",
+      relation: "Interno. No acoplado por defecto.",
+      summary:
+        "Ciclo de proveedores, matching de compras e inteligencia de caja — la capa que hace que el gasto de cocina y el ingreso de habitaciones compartan un cuadro.",
+      description:
+        "Ledger se sienta bajo compras y recepción. Sostiene saldos de proveedores, casa pedidos con facturas y muestra la posición de caja. Al fusionar la suite, el gasto de Costora y el ingreso de EasyRoom caen en el mismo cierre. Es el módulo contable interno de la suite.",
+      features: [
+        "Libro de proveedores con saldos corrientes",
+        "Matching de orden de compra a factura",
+        "Reconciliación automática al cierre",
+        "Caja a través de cocinas y propiedades",
+      ],
+      outcomes: [
+        { label: "Cierre", value: "Días, no semanas" },
+        { label: "POs sin match", value: "Marcadas" },
+        { label: "Alcance", value: "Multi-entidad" },
+      ],
+      brief:
+        "Ledger es el tejido contable de Syllogic — para sentarse bajo las compras de Costora y las folios de EasyRoom, no para sustituir al contable. El propio roadmap de EasyRoom es explícito: el hotel ya tiene libros; exportamos. Ledger es la capa más profunda cuando el grupo quiere una sola posición de caja.",
+      facts: [
+        "Módulo interno — no es un producto self-serve público",
+        "Cierra gasto de cocina contra ingreso de habitaciones",
+        "Saldos de proveedores y matching de POs",
+        "Se fusiona; no fork de un segundo stack financiero",
+        "Se acota con el resto de la suite",
+      ],
+    },
+  },
+  module: {
+    back: "La suite",
+    talk: "Hablar de {name}",
+    openLive: "Abrir el sistema en vivo",
+    fieldNotes: "Del repositorio del producto",
+    unknown: "Módulo desconocido",
+    unknownBody: "Ese producto no está en la suite.",
+    backHome: "Volver a Syllogic Labs",
+  },
+  bespoke: {
+    kicker: "Motor a medida",
+    title: "Cuando la suite no es toda la respuesta, igual construimos el sistema.",
+    body: "Syllogic Labs es casa de producto y estudio de software. Quienes envían Costora diseñan la pieza que falta en tu operación.",
+    pillars: [
+      {
+        title: "Extensiones de producto",
+        body: "Módulos nuevos sobre el mismo tejido que Costora, Menura, EasyRoom y Ledger — no un stack paralelo.",
+      },
+      {
+        title: "Sistemas greenfield",
+        body: "Software operativo desde cero cuando la suite no cubre el trabajo. Mismo lenguaje. Mismo listón.",
+      },
+      {
+        title: "Tejido de integración",
+        body: "POS, pagos, contabilidad y PMS cableados para que tickets, habitaciones y caja compartan un cuadro.",
+      },
+    ],
+    briefs: [
+      {
+        id: "fb-group",
+        label: "Grupo F&B multi-local",
+        fit: "Crecimiento",
+        stack: ["Costora", "Menura", "Ledger"],
+        note: "Recetas compartidas, menús por local, un libro de proveedores.",
+      },
+      {
+        id: "boutique",
+        label: "Hotel boutique",
+        fit: "Piloto",
+        stack: ["EasyRoom", "Menura", "Ledger"],
+        note: "Habitaciones, F&B y folios sin un PMS de cadena.",
+      },
+      {
+        id: "estate",
+        label: "Grupo multi-propiedad",
+        fit: "Grupo",
+        stack: ["EasyRoom", "Costora", "Menura", "Ledger", "Bespoke"],
+        note: "Coste central, menús locales, caja de grupo.",
+      },
+    ],
+    steps: [
+      { n: "01", t: "Discovery", d: "Mapear la operación, no una lista de features." },
+      { n: "02", t: "Arquitectura", d: "Decidir qué es suite y qué es custom." },
+      { n: "03", t: "Construir en cortes", d: "Enviar un módulo que funciona, luego el siguiente." },
+      { n: "04", t: "Operar", d: "Handover, formación y un dueño nombrado." },
+    ],
+    cta: "Empezar un brief a medida",
+    fit: "Encaje",
+    stack: "Stack",
+  },
+  cta: {
+    kicker: "Discovery",
+    title: "Empieza con una conversación, no con un contrato.",
+    body: "El precio enterprise se acota a los módulos que corres y al volumen que cargan. Treinta minutos bastan para un piloto — cocina, habitaciones, ledger o un build a medida.",
+    book: "Reservar una llamada",
+  },
+  footer: {
+    blurb: "El sistema operativo inteligente para hospitalidad moderna y empresa.",
+    systems: "Sistemas",
+    suite: "Sistemas",
+    studio: "Estudio",
+    contact: "Contacto",
+    rights: "Todos los derechos reservados.",
+    city: "El Cairo · Remoto",
+  },
+  discovery: {
+    title: "Llamada de discovery",
+    body: "Cuéntanos la operación. Volvemos con un siguiente paso acotado.",
+    close: "Cerrar",
+    name: "Nombre",
+    email: "Email de trabajo",
+    company: "Empresa",
+    role: "Rol",
+    interest: "Interés",
+    notes: "Notas",
+    notesPh: "Locales, propiedades, sistemas en juego…",
+    submit: "Pedir una llamada",
+    received: "Solicitud recibida.",
+    followup: "Revisaremos {company} y escribiremos a {email}. Revisa tu bandeja.",
+    errName: "Introduce tu nombre.",
+    errEmail: "Usa un email de trabajo válido.",
+    errCompany: "La empresa es obligatoria.",
+    interests: {
+      suite: "Suite completa",
+      costora: "Costora",
+      menura: "Menura",
+      easyroom: "EasyRoom",
+      ledger: "Ledger",
+      bespoke: "Build a medida",
+    },
+  },
+  demo: {
+    liveCosting: "Coste en vivo",
+    portion: "Ración",
+    sell: "Venta",
+    foodCost: "Food cost",
+  },
+  lang: {
+    label: "Idioma",
+  },
+};

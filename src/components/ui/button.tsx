@@ -7,10 +7,14 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-fg text-void shadow-glow hover:bg-white",
-        accent: "bg-accent text-void hover:bg-accent-dim",
-        ghost: "bg-transparent text-fg shadow-hairline hover:shadow-hairline-hover hover:text-accent",
-        quiet: "bg-transparent text-muted hover:text-fg",
+        primary:
+          "bg-fg text-void shadow-glow hover:bg-white",
+        accent:
+          "bg-accent text-void hover:bg-accent-dim",
+        ghost:
+          "bg-transparent text-fg shadow-hairline hover:shadow-hairline-hover hover:text-accent",
+        quiet:
+          "bg-transparent text-muted hover:text-fg",
       },
       size: {
         sm: "h-10 rounded-full px-4 text-sm",

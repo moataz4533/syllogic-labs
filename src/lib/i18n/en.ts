@@ -1,33 +1,81 @@
 export const en = {
   nav: {
-    synergy: "Synergy",
-    suite: "The suite",
+    approach: "Approach",
+    systems: "Systems",
+    stack: "Stack",
+    synergy: "Costora × Menura",
+    suite: "Systems",
     bespoke: "Bespoke",
     contact: "Contact",
-    book: "Book discovery",
+    book: "Start a brief",
     live: "Systems live",
-    modules: "Modules",
+    modules: "Systems",
     skip: "Skip to content",
     closeMenu: "Close menu",
     openMenu: "Open menu",
   },
   hero: {
     kicker: "Syllogic Labs",
-    title: "Kitchen. Rooms. Cash. One OS.",
-    body: "Four live systems. Fuse them when the operation is ready.",
-    cta: "Explore the suite",
-    ctaAlt: "Book a discovery call",
-    scroll: "Watch them fuse",
+    title: "Smart systems for any business.",
+    body: "We design intelligent operational software — data-disciplined, AI where it earns its keep, priced to the size of the work.",
+    cta: "See the systems",
+    ctaAlt: "Start a brief",
+    scroll: "How we think",
     stats: [
-      { k: "Modules", v: "04" },
-      { k: "Languages", v: "5" },
-      { k: "Hardware", v: "Zero" },
-      { k: "Pricing", v: "Scoped" },
+      { k: "Live systems", v: "03" },
+      { k: "In the lab", v: "More" },
+      { k: "AI in stack", v: "Yes" },
+      { k: "Cost", v: "Scoped" },
+    ],
+  },
+  approach: {
+    kicker: "Approach",
+    title: "Smart solutions. Smart cost.",
+    body: "Most operators are sold a platform they will never fill. We build the system the operation can actually run — and we keep the bill honest.",
+    pillars: [
+      {
+        title: "Intelligence in the work",
+        body: "Live costing models, database constraints, OCR, and the Vercel AI SDK — used where they pay, never bolted on as décor.",
+      },
+      {
+        title: "Cost as a design rule",
+        body: "Scoped to volume. No enterprise tax for a small operator. Studio cost, senior engineering.",
+      },
+      {
+        title: "A lab, not a monolith",
+        body: "Each system stands alone. We couple only when the data contract is proven. Today that is Costora × Menura. Nothing else is wired by default.",
+      },
+    ],
+  },
+  systems: {
+    kicker: "Shipped",
+    title: "Independent systems. A catalog that will grow.",
+    body: "Costora and Menura can couple. EasyRoom and Ledger do not. The next products will be their own systems too.",
+  },
+  stack: {
+    kicker: "Engineering",
+    title: "The stack we actually ship.",
+    body: "Read from the product repos — not a vendor slide. TypeScript, Postgres, and applied AI in production today.",
+    groups: {
+      intelligence: "Intelligence",
+      data: "Data & trust",
+      surface: "Product surface",
+      delivery: "Delivery & edges",
+    },
+  },
+  lab: {
+    kicker: "The lab",
+    title: "This is the first wave.",
+    body: "Syllogic is a young company with a long product list. What is live now is the start — not the ceiling.",
+    incoming: [
+      { tag: "05 · Design", title: "Next vertical system", body: "Another independent product, scoped to one operation first." },
+      { tag: "06 · Research", title: "Applied intelligence", body: "Model-backed decisions on top of the data we already hold." },
+      { tag: "07 · Custom", title: "Your operation", body: "If the catalog does not cover the work, we still build the system." },
     ],
   },
   synergy: {
-    kicker: "Costora × Menura",
-    title: "Change a cost. Watch the menu move.",
+    kicker: "Optional coupling",
+    title: "Only Costora and Menura share a ticket. Nothing else is wired.",
     body: "Change a supplier price in Costora. In standalone, the QR menu is unaware. In synced, Menura inherits the costed price before the next guest scans.",
     standalone: "Standalone",
     synced: "Synced",
@@ -57,9 +105,9 @@ export const en = {
     ],
   },
   suite: {
-    kicker: "The suite",
-    title: "Four systems. One fabric.",
-    body: "Tap a frame. Each one is a live product.",
+    kicker: "Shipped",
+    title: "Independent systems. A catalog that will grow.",
+    body: "Costora and Menura can couple. EasyRoom and Ledger do not.",
     talk: "Talk to us",
     explore: "Explore",
     openProduct: "Open live product",
@@ -67,7 +115,8 @@ export const en = {
   products: {
     costora: {
       tag: "Cost & Recipe Engineering",
-      badge: "Live · costora.co",
+      badge: "Live · independent",
+      relation: "Stands alone. Optional coupling with Menura.",
       summary:
         "Restaurant cost control: inventory, recipe costing, menu engineering, purchasing, waste, labor, and prime cost — nine languages, native Arabic RTL, offline as a PWA.",
       description:
@@ -95,7 +144,8 @@ export const en = {
     },
     menura: {
       tag: "Digital Guest Experience",
-      badge: "Live · QR menu",
+      badge: "Live · independent",
+      relation: "Stands alone. Optional coupling with Costora.",
       summary:
         "A QR menu and ordering engine for restaurants and cafés — twelve themes, six languages, table QR, waiter call, WhatsApp, and on-device PDF import.",
       description:
@@ -123,7 +173,8 @@ export const en = {
     },
     easyroom: {
       tag: "Boutique Property PMS",
-      badge: "Live · PMS",
+      badge: "Live · independent",
+      relation: "A separate system. Not wired to Costora or Menura.",
       summary:
         "Room and booking management for independent hotels. Double-booking is impossible. Occupancy and housekeeping are separate axes. First shaped for The Greek Club in Dahab.",
       description:
@@ -151,7 +202,8 @@ export const en = {
     },
     ledger: {
       tag: "Autonomous Accounting Hub",
-      badge: "Enterprise layer",
+      badge: "Internal module",
+      relation: "Internal. Not coupled by default.",
       summary:
         "Vendor lifecycle, purchase matching, and cashflow intelligence — the layer that lets kitchen spend and room revenue share one picture.",
       description:
@@ -179,7 +231,7 @@ export const en = {
     },
   },
   module: {
-    back: "The suite",
+    back: "Systems",
     talk: "Talk about {name}",
     openLive: "Open the live system",
     fieldNotes: "From the product repo",
@@ -188,9 +240,9 @@ export const en = {
     backHome: "Back to Syllogic Labs",
   },
   bespoke: {
-    kicker: "Bespoke engine",
-    title: "Need a piece that is not in the suite? We still build it.",
-    body: "Syllogic Labs is a product house and a software studio. The same people who ship Costora will design the piece your operation is missing.",
+    kicker: "Bespoke",
+    title: "If the catalog is not the answer, we still build the system.",
+    body: "Any sector. Any operation. The same people who ship Costora will design the piece you are missing — at studio cost, with an enterprise bar.",
     pillars: [
       {
         title: "Product extensions",
@@ -208,24 +260,24 @@ export const en = {
     briefs: [
       {
         id: "fb-group",
-        label: "Multi-outlet F&B",
+        label: "Growing operator",
         fit: "Growth",
         stack: ["Costora", "Menura", "Ledger"],
-        note: "Shared recipes, outlet-level menus, one vendor ledger.",
+        note: "Shared recipes, outlet-level menus, one vendor ledger — only if you want them coupled.",
       },
       {
         id: "boutique",
-        label: "Boutique hotel",
+        label: "Independent property",
         fit: "Pilot",
-        stack: ["EasyRoom", "Menura", "Ledger"],
-        note: "Rooms, F&B, and folios without a chain PMS.",
+        stack: ["EasyRoom"],
+        note: "Rooms and housekeeping as their own system. Nothing else is assumed.",
       },
       {
         id: "estate",
-        label: "Multi-property estate",
-        fit: "Estate",
-        stack: ["EasyRoom", "Costora", "Menura", "Ledger", "Bespoke"],
-        note: "Central cost, local menus, group cash position.",
+        label: "Greenfield operation",
+        fit: "Custom",
+        stack: ["Bespoke"],
+        note: "A new vertical. We start from the work, not from the catalog.",
       },
     ],
     steps: [
@@ -240,13 +292,14 @@ export const en = {
   },
   cta: {
     kicker: "Discovery",
-    title: "Start with a conversation.",
-    body: "Enterprise pricing is scoped to the modules you run and the volume they carry. Thirty minutes is enough to map a pilot — kitchen, rooms, ledger, or a custom build.",
+    title: "Tell us the operation. We will size the system.",
+    body: "Pricing is scoped to what you run and the volume it carries. Thirty minutes is enough to map a first slice — a live product, a custom build, or both.",
     book: "Book a discovery call",
   },
   footer: {
-    blurb: "Hospitality OS. Cairo · Remote.",
-    suite: "Suite",
+    blurb: "Intelligent systems for any business. Cairo · Remote.",
+    systems: "Systems",
+    suite: "Systems",
     studio: "Studio",
     contact: "Contact",
     rights: "All rights reserved.",
@@ -262,7 +315,7 @@ export const en = {
     role: "Role",
     interest: "Interest",
     notes: "Notes",
-    notesPh: "Outlets, properties, systems in play…",
+    notesPh: "Sector, volume, systems in play…",
     submit: "Request a call",
     received: "Request received.",
     followup: "We’ll review {company} and follow up at {email}. Keep an eye on your inbox.",
