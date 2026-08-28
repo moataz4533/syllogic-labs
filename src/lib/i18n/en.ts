@@ -64,3 +64,229 @@ export const en = {
     explore: "Explore",
     openProduct: "Open live product",
   },
+  products: {
+    costora: {
+      tag: "Cost & Recipe Engineering",
+      badge: "Live · costora.co",
+      summary:
+        "Restaurant cost control: inventory, recipe costing, menu engineering, purchasing, waste, labor, and prime cost — nine languages, native Arabic RTL, offline as a PWA.",
+      description:
+        "Costora is the engineering layer under the menu. It prices every recipe from a live ingredient matrix, deducts stock as work happens, compares supplier quotes, and shows waste, labor, and prime cost by branch. Security is Postgres RLS — hiding a button is never treated as a boundary. Local mode is a full offline PWA; signed-in venues sync with owner, manager, chef, and store roles.",
+      features: [
+        "Dynamic recipe and prep costing from a live ingredient matrix",
+        "Inventory, stock counts, purchasing, and quote comparison",
+        "Waste, variance, labor, and prime-cost scorecards",
+        "Nine languages with full Arabic RTL — cloud or offline PWA",
+      ],
+      outcomes: [
+        { label: "Languages", value: "9 · RTL" },
+        { label: "Mode", value: "Cloud + offline" },
+        { label: "Security", value: "RLS in Postgres" },
+      ],
+      brief:
+        "Read from the Costora repo, not a slide. v0.11.1 is live at costora.co: a multilingual cost-control app covering inventory, recipe and prep costing, menu pricing, purchasing, waste, labor, and multi-branch scorecards. Tenant isolation is enforced in the database. Billing via Dodo Payments is wired and flagged off until the test flow is proven end-to-end. Menura already shares the same identity, accounts, and branches.",
+      facts: [
+        "Live at costora.co · v0.11.1",
+        "9 languages, native Arabic RTL",
+        "PWA — full offline in local mode",
+        "Roles: owner, manager, chef, store — enforced in SQL",
+        "Identity shared with Menura, data contracts kept separate",
+      ],
+    },
+    menura: {
+      tag: "Digital Guest Experience",
+      badge: "Live · QR menu",
+      summary:
+        "A QR menu and ordering engine for restaurants and cafés — twelve themes, six languages, table QR, waiter call, WhatsApp, and on-device PDF import.",
+      description:
+        "Menura puts the current menu in the guest’s hand. Theme, type, radius, and density are data, not code. Four order modes: view only, show the waiter a local cart, WhatsApp (item names always in Arabic so the kitchen understands), or dashboard orders. Each table gets its own QR. Waiter-call is bound to an active table token and rate-limited in the database. Menu tables are private — the public page reads a single RPC. Unpublished lists never leak.",
+      features: [
+        "QR per table, 12 themes, 6 languages with auto-detect",
+        "Waiter call with database rate limits and a service screen",
+        "WhatsApp, local cart, dine-in and takeaway orders",
+        "PDF, CSV, JSON, and on-device OCR import — then a human review",
+      ],
+      outcomes: [
+        { label: "Themes", value: "12" },
+        { label: "Order modes", value: "4" },
+        { label: "Public data", value: "One RPC" },
+      ],
+      brief:
+        "From the Menura repo: an independent module inside the Costora system, with hard data boundaries. Next.js + Supabase. The menu schema is never exposed to the browser. Costora and Menura share login and branches; they do not silently read each other’s tables. Cost and margin sync is an explicit future contract — not a hidden join.",
+      facts: [
+        "Public menu via a single RPC — unpublished lists stay invisible",
+        "12 themes; contrast of text-on-accent is computed, not guessed",
+        "WhatsApp tickets send Arabic names so the kitchen can cook",
+        "Service staff pair a device with a code — no menu permissions",
+        "PDF import runs on the guest’s machine, including OCR",
+      ],
+    },
+    easyroom: {
+      tag: "Boutique Property PMS",
+      badge: "Live · PMS",
+      summary:
+        "Room and booking management for independent hotels. Double-booking is impossible. Occupancy and housekeeping are separate axes. First shaped for The Greek Club in Dahab.",
+      description:
+        "EasyRoom is a property system sized for independent operators. Every reason a room is unavailable — a guest, maintenance, a hold — lives in one table with a Postgres exclusion constraint, so two receptionists confirming in the same millisecond cannot both succeed. Prices are a matrix: rate = f(room type, occupancy, rate plan, date). Housekeeping sees clean/dirty independently of occupied/empty. Creating a booking does not work offline on purpose — two disconnected devices cannot agree on room 103. Cancellations need a manager PIN hashed in a table with no select policies.",
+      features: [
+        "Tape chart across 7, 14, or 30 days",
+        "Exclusion constraint — double-booking is a database error",
+        "Seasonal rates, extras, guest history, WhatsApp confirmations",
+        "Arabic + English, roles down to housekeeping with no money access",
+      ],
+      outcomes: [
+        { label: "First property", value: "Dahab" },
+        { label: "Double-book", value: "Impossible" },
+        { label: "Offline booking", value: "Refused" },
+      ],
+      brief:
+        "From the EasyRoom repo. Built first for The Greek Club in Dahab — logo, colours, room types, and rates are rows, so a second hotel is data entry, not a fork. Occupancy and housekeeping are separate on purpose; collapsing them is the mistake that makes housekeeping unusable. Channel manager is deliberately not built. Accounting is exported, not replaced.",
+      facts: [
+        "Property-agnostic: the first hotel is not hardcoded",
+        "One exclusion constraint owns every kind of unavailability",
+        "Rate is a function of type, occupancy, plan, and date",
+        "Housekeeping never sees money or guest details",
+        "Manager PIN: five failures lock for fifteen minutes",
+      ],
+    },
+    ledger: {
+      tag: "Autonomous Accounting Hub",
+      badge: "Enterprise layer",
+      summary:
+        "Vendor lifecycle, purchase matching, and cashflow intelligence — the layer that lets kitchen spend and room revenue share one picture.",
+      description:
+        "Ledger sits under purchasing and the front desk. It holds vendor balances, matches orders to invoices, and surfaces cash position without a separate finance stack. When the suite is fused, Costora’s kitchen spend and EasyRoom’s room revenue land in the same close. It is the internal accounting module of the suite — scoped per operator, not a public self-serve app.",
+      features: [
+        "Vendor ledger with running balances",
+        "Purchase-order to invoice matching",
+        "Automated reconciliation on close",
+        "Cashflow view across kitchens and properties",
+      ],
+      outcomes: [
+        { label: "Close cycle", value: "Days, not weeks" },
+        { label: "Unmatched POs", value: "Flagged" },
+        { label: "Scope", value: "Multi-entity" },
+      ],
+      brief:
+        "Ledger is the accounting fabric of Syllogic — designed to sit under Costora purchasing and EasyRoom folios rather than replace the operator’s accountant. EasyRoom’s own roadmap is explicit: hotels already have a books system; we export to it. Ledger is the optional deeper layer when the group wants one cash position across F&B and rooms.",
+      facts: [
+        "Internal module — not a public self-serve product",
+        "Closes kitchen spend against room revenue",
+        "Vendor balances and PO matching",
+        "Built to fuse, not to fork a second finance stack",
+        "Scoped with the rest of the suite, never sold as a gadget",
+      ],
+    },
+  },
+  module: {
+    back: "The suite",
+    talk: "Talk about {name}",
+    openLive: "Open the live system",
+    fieldNotes: "From the product repo",
+    unknown: "Unknown module",
+    unknownBody: "That product is not in the suite.",
+    backHome: "Back to Syllogic Labs",
+  },
+  bespoke: {
+    kicker: "Bespoke engine",
+    title: "Need a piece that is not in the suite? We still build it.",
+    body: "Syllogic Labs is a product house and a software studio. The same people who ship Costora will design the piece your operation is missing.",
+    pillars: [
+      {
+        title: "Product extensions",
+        body: "New modules that sit on the same fabric as Costora, Menura, EasyRoom, and Ledger — not a parallel stack.",
+      },
+      {
+        title: "Greenfield systems",
+        body: "From-scratch operating software when the suite does not cover the work. Same design language. Same delivery bar.",
+      },
+      {
+        title: "Integration fabric",
+        body: "POS, payments, accounting, and property systems wired so tickets, rooms, and cash share one picture.",
+      },
+    ],
+    briefs: [
+      {
+        id: "fb-group",
+        label: "Multi-outlet F&B",
+        fit: "Growth",
+        stack: ["Costora", "Menura", "Ledger"],
+        note: "Shared recipes, outlet-level menus, one vendor ledger.",
+      },
+      {
+        id: "boutique",
+        label: "Boutique hotel",
+        fit: "Pilot",
+        stack: ["EasyRoom", "Menura", "Ledger"],
+        note: "Rooms, F&B, and folios without a chain PMS.",
+      },
+      {
+        id: "estate",
+        label: "Multi-property estate",
+        fit: "Estate",
+        stack: ["EasyRoom", "Costora", "Menura", "Ledger", "Bespoke"],
+        note: "Central cost, local menus, group cash position.",
+      },
+    ],
+    steps: [
+      { n: "01", t: "Discovery", d: "Map the operation, not a feature list." },
+      { n: "02", t: "Architecture", d: "Decide what is suite, what is custom." },
+      { n: "03", t: "Build in slices", d: "Ship a working module, then the next." },
+      { n: "04", t: "Operate", d: "Handover, training, and a named owner." },
+    ],
+    cta: "Start a bespoke brief",
+    fit: "Fit",
+    stack: "Stack",
+  },
+  cta: {
+    kicker: "Discovery",
+    title: "Start with a conversation.",
+    body: "Enterprise pricing is scoped to the modules you run and the volume they carry. Thirty minutes is enough to map a pilot — kitchen, rooms, ledger, or a custom build.",
+    book: "Book a discovery call",
+  },
+  footer: {
+    blurb: "Hospitality OS. Cairo · Remote.",
+    suite: "Suite",
+    studio: "Studio",
+    contact: "Contact",
+    rights: "All rights reserved.",
+    city: "Cairo · Remote",
+  },
+  discovery: {
+    title: "Discovery call",
+    body: "Tell us about the operation. We’ll come back with a scoped next step.",
+    close: "Close",
+    name: "Name",
+    email: "Work email",
+    company: "Company",
+    role: "Role",
+    interest: "Interest",
+    notes: "Notes",
+    notesPh: "Outlets, properties, systems in play…",
+    submit: "Request a call",
+    received: "Request received.",
+    followup: "We’ll review {company} and follow up at {email}. Keep an eye on your inbox.",
+    errName: "Please enter your name.",
+    errEmail: "Use a valid work email.",
+    errCompany: "Company is required.",
+    interests: {
+      suite: "Full suite",
+      costora: "Costora",
+      menura: "Menura",
+      easyroom: "EasyRoom",
+      ledger: "Ledger",
+      bespoke: "Bespoke build",
+    },
+  },
+  demo: {
+    liveCosting: "Live costing",
+    portion: "Portion",
+    sell: "Sell",
+    foodCost: "Food cost",
+  },
+  lang: {
+    label: "Language",
+  },
+};
+
+export type Messages = typeof en;
