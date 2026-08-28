@@ -16,6 +16,7 @@ export type Product = {
   live: boolean;
   icon: LucideIcon;
   image: string;
+  couples?: ProductId;
 };
 
 export const products: Product[] = [
@@ -27,6 +28,7 @@ export const products: Product[] = [
     live: true,
     icon: Layers,
     image: "/media/costora.jpg",
+    couples: "menura",
   },
   {
     id: "menura",
@@ -36,6 +38,7 @@ export const products: Product[] = [
     live: true,
     icon: Utensils,
     image: "/media/menura.jpg",
+    couples: "costora",
   },
   {
     id: "easyroom",
@@ -62,8 +65,10 @@ export function getProduct(id: string): Product | undefined {
 }
 
 export const navHrefs = [
-  { href: "/#suite", key: "suite" },
-  { href: "/#synergy", key: "synergy" },
-  { href: "/#bespoke", key: "bespoke" },
+  { href: "/#approach", key: "approach" },
+  { href: "/#systems", key: "systems" },
+  { href: "/#stack", key: "stack" },
   { href: "/#contact", key: "contact" },
 ] as const;
+
+export const navLinks = navHrefs;
