@@ -11,7 +11,7 @@ export function FrictionlessCTA() {
     <section id="contact" className="relative z-10 px-5 pb-16 sm:px-8 sm:pb-24">
       <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] shadow-hairline">
         <img
-          src="/media/easyroom.jpg"
+          src="/media/thesis.jpg"
           alt=""
           className="absolute inset-0 h-full w-full object-cover"
         />
