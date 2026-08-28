@@ -37,7 +37,7 @@ export function Hero() {
         </div>
         <p className="mt-5 max-w-md text-base text-fg/80 sm:text-lg">{t.hero.body}</p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <a href="#suite" className="inline-flex">
+          <a href="#systems" className="inline-flex">
             <Button size="lg" className="w-full sm:w-auto">
               {t.hero.cta}
               <ArrowUpRight className="size-4" />
