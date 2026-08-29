@@ -194,7 +194,7 @@ export function ParticleCanvas() {
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none fixed inset-0 z-0 opacity-40"
+      className="pointer-events-none fixed inset-0 z-0 opacity-30"
       aria-hidden="true"
     />
   );

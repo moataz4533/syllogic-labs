@@ -2,7 +2,7 @@ import { type ReactNode, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Link2, Link2Off, Minus, Plus } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
-import { useI18n } from "@/lib/i18n";
+import { interpolate, useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 type Mode = "standalone" | "synced";
@@ -27,6 +27,12 @@ export function SynergySwitch() {
   const menuraPrice = mode === "synced" ? suggested : STALE_PRICE;
   const foodCostPct = (portion / menuraPrice) * 100;
   const synced = mode === "synced";
+  const logs =
+    mode === "synced"
+      ? t.synergy.syncedLog.map((line) =>
+          interpolate(line, { price: money(rice), sell: money(suggested) }),
+        )
+      : t.synergy.standaloneLog;
 
   return (
     <section id="synergy" className="relative z-10 px-5 py-16 sm:px-8 sm:py-24">
@@ -40,6 +46,7 @@ export function SynergySwitch() {
               <h2 className="mt-2 max-w-lg font-display text-3xl font-semibold text-fg sm:text-4xl">
                 {t.synergy.title}
               </h2>
+              <p className="mt-3 max-w-xl text-sm text-muted">{t.synergy.body}</p>
             </div>
             <ModeToggle
               mode={mode}
@@ -50,12 +57,8 @@ export function SynergySwitch() {
           </div>
         </Reveal>
 
-        <div className="mt-8 grid grid-cols-1 gap-3 lg:grid-cols-[1fr_auto_1fr] lg:items-stretch">
-          <Panel
-            image="/media/costora.jpg"
-            kicker="Costora"
-            title={t.synergy.dish}
-          >
+        <div className="mt-8 grid grid-cols-1 gap-0 lg:grid-cols-[1fr_auto_1fr] lg:items-stretch">
+          <Panel kicker="Costora" title={t.synergy.dish}>
             <div className="flex items-center justify-between gap-3">
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-wider text-subtle">
@@ -69,10 +72,16 @@ export function SynergySwitch() {
                 </p>
               </div>
               <div className="flex gap-2">
-                <IconBtn label="Decrease" onClick={() => setRice((v) => Math.max(1.2, Number((v - 0.2).toFixed(2))))}>
+                <IconBtn
+                  label="Decrease"
+                  onClick={() => setRice((v) => Math.max(1.2, Number((v - 0.2).toFixed(2))))}
+                >
                   <Minus className="size-4" />
                 </IconBtn>
-                <IconBtn label="Increase" onClick={() => setRice((v) => Math.min(6, Number((v + 0.2).toFixed(2))))}>
+                <IconBtn
+                  label="Increase"
+                  onClick={() => setRice((v) => Math.min(6, Number((v + 0.2).toFixed(2))))}
+                >
                   <Plus className="size-4" />
                 </IconBtn>
               </div>
@@ -82,22 +91,9 @@ export function SynergySwitch() {
             </p>
           </Panel>
 
-          <div className="hidden items-center justify-center lg:flex">
-            <div
-              className={cn(
-                "flex size-14 items-center justify-center rounded-full shadow-hairline",
-                synced ? "bg-accent/15 text-accent" : "bg-elevated text-subtle",
-              )}
-            >
-              {synced ? <Link2 className="size-5" /> : <Link2Off className="size-5" />}
-            </div>
-          </div>
+          <Connector synced={synced} label={synced ? t.synergy.synced : t.synergy.standalone} />
 
-          <Panel
-            image="/media/menura.jpg"
-            kicker="Menura"
-            title={t.synergy.guestMenu}
-          >
+          <Panel kicker="Menura" title={t.synergy.guestMenu}>
             <div className="flex items-end justify-between gap-3">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.p
@@ -129,35 +125,66 @@ export function SynergySwitch() {
             </p>
           </Panel>
         </div>
+
+        <ol className="mt-3 space-y-2 rounded-3xl bg-void/55 px-5 py-4 font-mono text-[12px] leading-relaxed text-muted shadow-hairline">
+          {logs.map((line) => (
+            <li key={line} className="flex gap-3">
+              <span className={synced ? "text-accent" : "text-warn"}>→</span>
+              <span>{line}</span>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );
 }
 
+function Connector({ synced, label }: { synced: boolean; label: string }) {
+  return (
+    <div className="relative z-10 flex h-16 items-center justify-center lg:h-auto lg:min-h-40 lg:w-16">
+      <div
+        className={cn(
+          "connector-track relative h-full w-px",
+          synced ? "is-live" : "is-open",
+        )}
+        aria-hidden="true"
+      >
+        {synced ? (
+          <>
+            <span className="connector-packet delay-0" />
+            <span className="connector-packet delay-1" />
+          </>
+        ) : null}
+      </div>
+      <div
+        className={cn(
+          "absolute flex size-14 items-center justify-center rounded-full shadow-hairline",
+          synced ? "bg-accent/15 text-accent" : "bg-elevated text-subtle",
+        )}
+      >
+        {synced ? <Link2 className="size-5" /> : <Link2Off className="size-5" />}
+        <span className="sr-only">{label}</span>
+      </div>
+    </div>
+  );
+}
+
 function Panel({
-  image,
   kicker,
   title,
   children,
 }: {
-  image: string;
   kicker: string;
   title: string;
   children: ReactNode;
 }) {
   return (
-    <div className="overflow-hidden rounded-3xl shadow-hairline">
-      <div className="relative h-44 sm:h-56">
-        <img src={image} alt="" className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-void via-void/40 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 p-5">
-          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">
-            {kicker}
-          </p>
-          <p className="font-display text-lg font-semibold text-fg">{title}</p>
-        </div>
-      </div>
-      <div className="bg-surface/80 p-5">{children}</div>
+    <div className="flex h-full flex-col rounded-3xl bg-surface/80 p-5 shadow-hairline sm:p-6">
+      <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">
+        {kicker}
+      </p>
+      <p className="mt-1 font-display text-lg font-semibold text-fg">{title}</p>
+      <div className="mt-5">{children}</div>
     </div>
   );
 }

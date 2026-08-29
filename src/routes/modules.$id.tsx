@@ -32,29 +32,22 @@ function ModulePage() {
   return (
     <SiteShell>
       <article className="relative z-10 pb-20">
-        <div className="relative h-[42vh] min-h-64 overflow-hidden sm:h-[52vh]">
-          <img
-            src={product.image}
-            alt=""
-            className="h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-void via-void/45 to-void/20" />
-          <div className="absolute inset-x-0 bottom-0 mx-auto max-w-6xl px-5 pb-8 sm:px-8">
-            <Link
-              to="/"
-              hash="systems"
-              className="inline-flex min-h-11 items-center gap-2 text-sm text-fg/80 hover:text-fg"
-            >
-              <ArrowLeft className="size-4 rtl:rotate-180" />
-              {t.module.back}
-            </Link>
-            <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-accent">
-              {copy.tag}
-            </p>
-            <h1 className="mt-2 font-display text-4xl font-semibold text-fg sm:text-6xl">
-              {product.name}
-            </h1>
-          </div>
+        <div className="mx-auto max-w-6xl px-5 pt-28 sm:px-8">
+          <Link
+            to="/"
+            hash="systems"
+            className="inline-flex min-h-11 items-center gap-2 text-sm text-fg/80 hover:text-fg"
+          >
+            <ArrowLeft className="size-4 rtl:rotate-180" />
+            {t.module.back}
+          </Link>
+          <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.22em] text-accent">
+            {copy.tag}
+          </p>
+          <h1 className="mt-2 font-display text-4xl font-semibold text-fg sm:text-6xl">
+            {product.name}
+          </h1>
+          <p className="mt-3 max-w-xl text-sm text-muted">{copy.relation}</p>
         </div>
 
         <div className="mx-auto max-w-6xl px-5 pt-10 sm:px-8">
@@ -106,18 +99,13 @@ function ModulePage() {
             <Demo id={product.id} />
           </div>
 
-          <Reveal className="mt-14 overflow-hidden rounded-3xl shadow-hairline">
-            <div className="grid grid-cols-1 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-              <img src={product.image} alt="" className="h-48 w-full object-cover md:h-full" />
-              <div className="bg-surface/80 p-6 sm:p-8">
-                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">
-                  {t.module.fieldNotes}
-                </p>
-                <p className="mt-4 text-sm leading-relaxed text-muted sm:text-base">
-                  {copy.brief}
-                </p>
-              </div>
-            </div>
+          <Reveal className="mt-14 rounded-3xl bg-surface/80 p-6 shadow-hairline sm:p-8">
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">
+              {t.module.fieldNotes}
+            </p>
+            <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
+              {copy.brief}
+            </p>
           </Reveal>
 
           <div className="mt-16 grid grid-cols-1 gap-3 sm:grid-cols-3">
@@ -128,17 +116,14 @@ function ModulePage() {
                   key={p.id}
                   to="/modules/$id"
                   params={{ id: p.id }}
-                  className="group overflow-hidden rounded-2xl shadow-hairline"
+                  className="rounded-2xl bg-surface/70 p-4 shadow-hairline transition-[box-shadow] duration-200 hover:shadow-hairline-hover"
                 >
-                  <img src={p.image} alt="" className="h-32 w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <div className="bg-surface/80 p-4">
-                    <p className="font-mono text-[11px] uppercase tracking-wider text-accent">
-                      {t.products[p.id].tag}
-                    </p>
-                    <p className="mt-1 font-display text-lg font-semibold text-fg">
-                      {p.name}
-                    </p>
-                  </div>
+                  <p className="font-mono text-[11px] uppercase tracking-wider text-accent">
+                    {t.products[p.id].tag}
+                  </p>
+                  <p className="mt-1 font-display text-lg font-semibold text-fg">
+                    {p.name}
+                  </p>
                 </Link>
               ))}
           </div>

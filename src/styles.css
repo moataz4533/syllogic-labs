@@ -214,20 +214,14 @@ html[dir="rtl"] .marquee-track {
 .hero-veil {
   background:
     radial-gradient(
-      ellipse 80% 55% at 12% 0%,
-      color-mix(in oklab, var(--color-accent) 22%, transparent),
-      transparent 58%
+      ellipse 70% 50% at 8% 0%,
+      color-mix(in oklab, var(--color-accent) 16%, transparent),
+      transparent 60%
     ),
     radial-gradient(
-      ellipse 70% 50% at 92% 78%,
-      color-mix(in oklab, var(--color-signal) 28%, transparent),
+      ellipse 55% 40% at 92% 80%,
+      color-mix(in oklab, var(--color-signal) 18%, transparent),
       transparent 62%
-    ),
-    linear-gradient(
-      to top,
-      var(--color-void) 0%,
-      color-mix(in oklab, var(--color-void) 62%, transparent) 42%,
-      color-mix(in oklab, var(--color-void) 22%, transparent) 100%
     );
 }
 
@@ -334,5 +328,60 @@ html[dir="rtl"] .marquee-track {
     animation: none;
     opacity: 0.28;
   }
+  .connector-packet {
+    animation: none;
+    display: none;
+  }
 }
+
+.connector-track {
+  background: color-mix(in oklab, var(--color-subtle) 45%, transparent);
+}
+
+.connector-track.is-live {
+  background: color-mix(in oklab, var(--color-accent) 55%, transparent);
+}
+
+.connector-track.is-open {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--color-subtle) 50%, transparent) 0 4px,
+    transparent 4px 9px
+  );
+  background-color: transparent;
+}
+
+.connector-packet {
+  position: absolute;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  box-shadow: var(--shadow-glow);
+  transform: translate(-50%, -50%);
+  animation: packet-y 1.8s linear infinite;
+}
+
+.connector-packet.delay-1 {
+  animation-delay: 0.9s;
+}
+
+@keyframes packet-y {
+  0% {
+    top: 8%;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    top: 92%;
+    opacity: 0;
+  }
+}
+
 

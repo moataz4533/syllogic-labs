@@ -24,16 +24,8 @@ export function BespokeEngine() {
           </h2>
         </Reveal>
 
-        <div className="mt-8 overflow-hidden rounded-3xl shadow-hairline">
-          <div className="relative h-48 sm:h-64">
-            <img
-              src="/media/hero.jpg"
-              alt=""
-              className="h-full w-full object-cover object-bottom"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-void via-void/50 to-transparent" />
-          </div>
-          <div className="grid grid-cols-1 gap-0 bg-surface/80 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <div className="mt-8 overflow-hidden rounded-3xl bg-surface/80 shadow-hairline">
+          <div className="grid grid-cols-1 gap-0 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
             <div className="flex flex-col gap-2 p-4 sm:p-5">
               {briefs.map((b) => (
                 <button
