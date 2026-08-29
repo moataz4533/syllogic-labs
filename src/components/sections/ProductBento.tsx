@@ -35,7 +35,7 @@ export function ProductBento() {
                   to="/modules/$id"
                   params={{ id: p.id }}
                   className={cn(
-                    "group relative block overflow-hidden rounded-3xl shadow-hairline",
+                    "group relative block overflow-hidden rounded-3xl shadow-hairline transition-[box-shadow] duration-200 hover:shadow-hairline-hover",
                     featured ? "md:col-span-2" : "",
                   )}
                 >

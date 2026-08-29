@@ -10,7 +10,7 @@ const buttonVariants = cva(
         primary:
           "bg-fg text-void shadow-glow hover:bg-white",
         accent:
-          "bg-accent text-void hover:bg-accent-dim",
+          "bg-accent text-void shadow-glow hover:bg-accent-dim",
         ghost:
           "bg-transparent text-fg shadow-hairline hover:shadow-hairline-hover hover:text-accent",
         quiet:

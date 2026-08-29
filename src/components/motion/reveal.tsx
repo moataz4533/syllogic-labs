@@ -31,10 +31,12 @@ export function SplitTitle({
   text,
   className,
   mode = "words",
+  chromaLast = false,
 }: {
   text: string;
   className?: string;
   mode?: "words" | "lines";
+  chromaLast?: boolean;
 }) {
   const reduce = useReducedMotion();
   const parts =
@@ -51,7 +53,10 @@ export function SplitTitle({
       {parts.map((part, i) => (
         <motion.span
           key={`${part}-${i}`}
-          className={stacked ? "block" : "me-[0.28em] inline-block"}
+          className={cn(
+            stacked ? "block" : "me-[0.28em] inline-block",
+            chromaLast && i === parts.length - 1 && "text-chroma",
+          )}
           initial={reduce ? false : { opacity: 0, y: 28, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ delay: 0.06 + i * (stacked ? 0.12 : 0.038), duration: 0.62, ease }}

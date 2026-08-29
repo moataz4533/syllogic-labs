@@ -1,12 +1,8 @@
 import { useEffect, useRef } from "react";
 
-type Particle = {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  r: number;
-};
+type Node = { x: number; y: number; bx: number; by: number; phase: number };
+type Edge = { a: number; b: number };
+type Packet = { e: number; t: number; speed: number };
 
 export function ParticleCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -16,8 +12,6 @@ export function ParticleCanvas() {
     if (!canvas) return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
-
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
@@ -28,20 +22,49 @@ export function ParticleCanvas() {
     let running = true;
     let mx = -9999;
     let my = -9999;
-    const particles: Particle[] = [];
+    const nodes: Node[] = [];
+    const edges: Edge[] = [];
+    const packets: Packet[] = [];
 
     const seed = () => {
+      nodes.length = 0;
+      edges.length = 0;
+      packets.length = 0;
       const mobile = width < 768;
-      const density = mobile ? 28000 : 18000;
-      const count = Math.max(18, Math.min(mobile ? 28 : 64, Math.floor((width * height) / density)));
-      particles.length = 0;
-      for (let i = 0; i < count; i++) {
-        particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.28,
-          vy: (Math.random() - 0.5) * 0.28,
-          r: Math.random() * 1.2 + 0.4,
+      const cols = mobile ? 7 : 14;
+      const rows = mobile ? 5 : 8;
+      const jitter = mobile ? 4 : 7;
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const x = ((c + (r % 2) * 0.5 + 0.5) / cols) * width;
+          const y = ((r + 0.55) / rows) * height;
+          nodes.push({
+            x,
+            y,
+            bx: x + (Math.random() - 0.5) * jitter,
+            by: y + (Math.random() - 0.5) * jitter,
+            phase: Math.random() * Math.PI * 2,
+          });
+        }
+      }
+      const idx = (c: number, r: number) => r * cols + c;
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const i = idx(c, r);
+          if (c + 1 < cols) edges.push({ a: i, b: idx(c + 1, r) });
+          if (r + 1 < rows) {
+            edges.push({ a: i, b: idx(c, r + 1) });
+            const diag = c + (r % 2 === 0 ? -1 : 1);
+            if (diag >= 0 && diag < cols) edges.push({ a: i, b: idx(diag, r + 1) });
+          }
+        }
+      }
+      const packetCount = mobile ? 6 : 14;
+      for (let i = 0; i < packetCount; i++) {
+        packets.push({
+          e: Math.floor(Math.random() * edges.length),
+          t: Math.random(),
+          speed: 0.0022 + Math.random() * 0.0034,
         });
       }
     };
@@ -58,54 +81,77 @@ export function ParticleCanvas() {
       seed();
     };
 
+    const paintStatic = () => {
+      ctx.clearRect(0, 0, width, height);
+      ctx.strokeStyle = "rgba(99, 102, 241, 0.09)";
+      ctx.lineWidth = 1;
+      for (const edge of edges) {
+        const a = nodes[edge.a];
+        const b = nodes[edge.b];
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      }
+      ctx.fillStyle = "rgba(34, 211, 238, 0.45)";
+      for (const n of nodes) {
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, 1.15, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    };
+
     const tick = () => {
       if (!running) return;
       ctx.clearRect(0, 0, width, height);
-      const mobile = width < 768;
-      const linkDist = mobile ? 0 : 118;
 
-      ctx.fillStyle = "rgba(34, 211, 238, 0.38)";
-      ctx.strokeStyle = "rgba(99, 102, 241, 0.11)";
+      for (const n of nodes) {
+        n.phase += 0.008;
+        const dxm = mx - n.bx;
+        const dym = my - n.by;
+        const dist = Math.hypot(dxm, dym);
+        const pull = dist < 160 && dist > 0.1 ? 10 * (1 - dist / 160) : 0;
+        const tx = n.bx + (pull ? (dxm / dist) * pull : 0) + Math.cos(n.phase) * 1.2;
+        const ty = n.by + (pull ? (dym / dist) * pull : 0) + Math.sin(n.phase * 0.9) * 1.2;
+        n.x += (tx - n.x) * 0.08;
+        n.y += (ty - n.y) * 0.08;
+      }
+
       ctx.lineWidth = 1;
-
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-        const dxm = mx - p.x;
-        const dym = my - p.y;
-        const distm = Math.hypot(dxm, dym);
-        if (distm < 180 && distm > 0.1) {
-          p.vx += (dxm / distm) * 0.018;
-          p.vy += (dym / distm) * 0.018;
-        }
-        p.vx *= 0.992;
-        p.vy *= 0.992;
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0 || p.x > width) p.vx *= -1;
-        if (p.y < 0 || p.y > height) p.vy *= -1;
-        p.x = Math.min(width, Math.max(0, p.x));
-        p.y = Math.min(height, Math.max(0, p.y));
-
+      for (const edge of edges) {
+        const a = nodes[edge.a];
+        const b = nodes[edge.b];
+        ctx.strokeStyle = "rgba(99, 102, 241, 0.11)";
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      }
 
-        if (linkDist > 0) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const q = particles[j];
-            const dx = p.x - q.x;
-            const dy = p.y - q.y;
-            const dist = Math.hypot(dx, dy);
-            if (dist < linkDist) {
-              ctx.globalAlpha = 1 - dist / linkDist;
-              ctx.beginPath();
-              ctx.moveTo(p.x, p.y);
-              ctx.lineTo(q.x, q.y);
-              ctx.stroke();
-              ctx.globalAlpha = 1;
-            }
-          }
+      for (const p of packets) {
+        p.t += p.speed;
+        if (p.t > 1) {
+          p.t = 0;
+          p.e = Math.floor(Math.random() * edges.length);
         }
+        const edge = edges[p.e];
+        const a = nodes[edge.a];
+        const b = nodes[edge.b];
+        const x = a.x + (b.x - a.x) * p.t;
+        const y = a.y + (b.y - a.y) * p.t;
+        ctx.fillStyle = "rgba(34, 211, 238, 0.85)";
+        ctx.beginPath();
+        ctx.arc(x, y, 1.6, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.fillStyle = "rgba(34, 211, 238, 0.5)";
+      for (const n of nodes) {
+        const dist = Math.hypot(mx - n.x, my - n.y);
+        const r = dist < 90 ? 1.8 : 1.15;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+        ctx.fill();
       }
 
       frame = requestAnimationFrame(tick);
@@ -120,14 +166,18 @@ export function ParticleCanvas() {
       if (document.hidden) {
         running = false;
         cancelAnimationFrame(frame);
-      } else if (!running) {
+      } else if (!running && !reduce) {
         running = true;
         frame = requestAnimationFrame(tick);
       }
     };
 
     resize();
-    frame = requestAnimationFrame(tick);
+    if (reduce) {
+      paintStatic();
+    } else {
+      frame = requestAnimationFrame(tick);
+    }
     window.addEventListener("resize", resize);
     window.addEventListener("pointermove", onMove, { passive: true });
     document.addEventListener("visibilitychange", onVisibility);
@@ -144,7 +194,7 @@ export function ParticleCanvas() {
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none fixed inset-0 z-0 opacity-25"
+      className="pointer-events-none fixed inset-0 z-0 opacity-40"
       aria-hidden="true"
     />
   );

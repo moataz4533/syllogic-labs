@@ -29,6 +29,18 @@ export const fr: Messages = {
       { k: "IA dans le stack", v: "Oui" },
       { k: "Coût", v: "Ciblé" },
     ],
+    stream: {
+      kicker: "plan de données",
+      title: "flux live",
+      status: "en cours",
+      events: [
+        { ch: "ingest", msg: "12 408 lignes validées" },
+        { ch: "modèle", msg: "rmse 0,041 · holdout" },
+        { ch: "query", msg: "p95 18ms · postgres" },
+        { ch: "sync", msg: "matrice temps réel" },
+        { ch: "règle", msg: "contrainte tenue" },
+      ],
+    },
   },
   approach: {
     kicker: "Approche",

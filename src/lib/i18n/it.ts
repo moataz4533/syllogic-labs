@@ -29,6 +29,18 @@ export const it: Messages = {
       { k: "AI nello stack", v: "Sì" },
       { k: "Costo", v: "Definito" },
     ],
+    stream: {
+      kicker: "data plane",
+      title: "stream live",
+      status: "in corso",
+      events: [
+        { ch: "ingest", msg: "12.408 righe confermate" },
+        { ch: "modello", msg: "rmse 0,041 · holdout" },
+        { ch: "query", msg: "p95 18ms · postgres" },
+        { ch: "sync", msg: "matrice realtime" },
+        { ch: "regola", msg: "vincolo rispettato" },
+      ],
+    },
   },
   approach: {
     kicker: "Approccio",

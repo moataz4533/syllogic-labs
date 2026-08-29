@@ -17,6 +17,18 @@ export const extra = {
       { k: "AI in stack", v: "Yes" },
       { k: "Cost", v: "Scoped" },
     ],
+    stream: {
+      kicker: "data plane",
+      title: "live stream",
+      status: "streaming",
+      events: [
+        { ch: "ingest", msg: "12,408 rows committed" },
+        { ch: "model", msg: "rmse 0.041 · holdout" },
+        { ch: "query", msg: "p95 18ms · postgres" },
+        { ch: "sync", msg: "matrix realtime" },
+        { ch: "gate", msg: "constraint held" },
+      ],
+    },
   },
   approach: {
     kicker: "Approach",

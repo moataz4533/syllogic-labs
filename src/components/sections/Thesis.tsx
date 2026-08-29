@@ -1,8 +1,15 @@
 import { Brain, Coins, Layers3 } from "lucide-react";
+import type { PointerEvent } from "react";
 import { Reveal } from "@/components/motion/reveal";
 import { useI18n } from "@/lib/i18n";
 
 const icons = [Brain, Coins, Layers3] as const;
+
+function onSpot(e: PointerEvent<HTMLElement>) {
+  const r = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty("--spot-x", `${e.clientX - r.left}px`);
+  e.currentTarget.style.setProperty("--spot-y", `${e.clientY - r.top}px`);
+}
 
 export function Thesis() {
   const { t } = useI18n();
@@ -38,14 +45,17 @@ export function Thesis() {
               const Icon = icons[i] ?? Brain;
               return (
                 <Reveal key={p.title} delay={i * 0.06}>
-                  <article className="h-full rounded-3xl bg-surface/70 p-5 shadow-hairline sm:p-6">
-                    <div className="flex size-10 items-center justify-center rounded-xl bg-void text-accent shadow-hairline">
+                  <article
+                    className="spot-card relative h-full overflow-hidden rounded-3xl bg-surface/70 p-5 shadow-hairline transition-[box-shadow] duration-200 hover:shadow-hairline-hover sm:p-6"
+                    onPointerMove={onSpot}
+                  >
+                    <div className="relative flex size-10 items-center justify-center rounded-xl bg-void text-accent shadow-hairline">
                       <Icon className="size-4" />
                     </div>
-                    <h3 className="mt-4 font-display text-lg font-semibold text-fg">
+                    <h3 className="relative mt-4 font-display text-lg font-semibold text-fg">
                       {p.title}
                     </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted">{p.body}</p>
+                    <p className="relative mt-2 text-sm leading-relaxed text-muted">{p.body}</p>
                   </article>
                 </Reveal>
               );

@@ -1,6 +1,13 @@
+import type { PointerEvent } from "react";
 import { Reveal } from "@/components/motion/reveal";
 import { useI18n } from "@/lib/i18n";
 import { stack } from "@/lib/stack";
+
+function onSpot(e: PointerEvent<HTMLElement>) {
+  const r = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty("--spot-x", `${e.clientX - r.left}px`);
+  e.currentTarget.style.setProperty("--spot-y", `${e.clientY - r.top}px`);
+}
 
 export function TechStack() {
   const { t } = useI18n();
@@ -21,11 +28,14 @@ export function TechStack() {
         <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2">
           {stack.map((group, i) => (
             <Reveal key={group.id} delay={i * 0.05}>
-              <article className="h-full rounded-3xl bg-surface/70 p-5 shadow-hairline sm:p-6">
-                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">
+              <article
+                className="spot-card relative h-full overflow-hidden rounded-3xl bg-surface/70 p-5 shadow-hairline transition-[box-shadow] duration-200 hover:shadow-hairline-hover sm:p-6"
+                onPointerMove={onSpot}
+              >
+                <p className="relative font-mono text-[11px] uppercase tracking-[0.18em] text-accent">
                   {t.stack.groups[group.id]}
                 </p>
-                <ul className="mt-4 flex flex-wrap gap-2">
+                <ul className="relative mt-4 flex flex-wrap gap-2">
                   {group.items.map((item) => (
                     <li
                       key={item}
