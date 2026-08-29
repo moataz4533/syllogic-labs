@@ -29,17 +29,13 @@ export const es: Messages = {
       { k: "IA en stack", v: "Sí" },
       { k: "Costo", v: "Acotado" },
     ],
-    stream: {
+    plane: {
       kicker: "plano de datos",
-      title: "stream en vivo",
-      status: "en curso",
-      events: [
-        { ch: "ingest", msg: "12.408 filas confirmadas" },
-        { ch: "modelo", msg: "rmse 0,041 · holdout" },
-        { ch: "query", msg: "p95 18ms · postgres" },
-        { ch: "sync", msg: "matriz en tiempo real" },
-        { ch: "regla", msg: "restricción intacta" },
-      ],
+      live: "en vivo",
+      open: "sin cable",
+      hop: "coste → menú",
+      hopFrom: "coste",
+      hopTo: "menú",
     },
   },
   approach: {

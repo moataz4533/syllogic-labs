@@ -1,8 +1,9 @@
 import { type ReactNode, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { Link2, Link2Off, Minus, Plus } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
+import { PacketLink } from "@/components/brand/PacketLink";
 import { Reveal } from "@/components/motion/reveal";
-import { interpolate, useI18n } from "@/lib/i18n";
+import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 type Mode = "standalone" | "synced";
@@ -27,12 +28,7 @@ export function SynergySwitch() {
   const menuraPrice = mode === "synced" ? suggested : STALE_PRICE;
   const foodCostPct = (portion / menuraPrice) * 100;
   const synced = mode === "synced";
-  const logs =
-    mode === "synced"
-      ? t.synergy.syncedLog.map((line) =>
-          interpolate(line, { price: money(rice), sell: money(suggested) }),
-        )
-      : t.synergy.standaloneLog;
+  const payload = synced ? money(suggested) : t.synergy.stale;
 
   return (
     <section id="synergy" className="relative z-10 px-5 py-16 sm:px-8 sm:py-24">
@@ -57,7 +53,7 @@ export function SynergySwitch() {
           </div>
         </Reveal>
 
-        <div className="mt-8 grid grid-cols-1 gap-0 lg:grid-cols-[1fr_auto_1fr] lg:items-stretch">
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] lg:items-stretch">
           <Panel kicker="Costora" title={t.synergy.dish}>
             <div className="flex items-center justify-between gap-3">
               <div>
@@ -91,7 +87,12 @@ export function SynergySwitch() {
             </p>
           </Panel>
 
-          <Connector synced={synced} label={synced ? t.synergy.synced : t.synergy.standalone} />
+          <PacketLink
+            live={synced}
+            axis="y"
+            label={synced ? t.synergy.synced : t.synergy.standalone}
+            payload={payload}
+          />
 
           <Panel kicker="Menura" title={t.synergy.guestMenu}>
             <div className="flex items-end justify-between gap-3">
@@ -126,45 +127,55 @@ export function SynergySwitch() {
           </Panel>
         </div>
 
-        <ol className="mt-3 space-y-2 rounded-3xl bg-void/55 px-5 py-4 font-mono text-[12px] leading-relaxed text-muted shadow-hairline">
-          {logs.map((line) => (
-            <li key={line} className="flex gap-3">
-              <span className={synced ? "text-accent" : "text-warn"}>→</span>
-              <span>{line}</span>
-            </li>
-          ))}
-        </ol>
+        <div className="mt-3 flex flex-col rounded-3xl bg-surface/80 px-4 py-2 shadow-hairline lg:flex-row lg:items-center lg:px-5">
+          <Hop k={t.synergy.ingredient} v={money(rice)} />
+          <PacketLink
+            live={synced}
+            axis="x"
+            label={t.synergy.portionCost}
+            payload=""
+            className="hidden lg:flex lg:max-w-20 lg:min-h-12"
+          />
+          <PacketLink
+            live={synced}
+            axis="y"
+            label={t.synergy.portionCost}
+            className="h-10 lg:hidden"
+          />
+          <Hop k={t.synergy.portionCost} v={money(portion)} />
+          <PacketLink
+            live={synced}
+            axis="x"
+            label={t.synergy.guestMenu}
+            payload={payload}
+            className="hidden lg:flex lg:max-w-36 lg:min-h-12"
+          />
+          <PacketLink
+            live={synced}
+            axis="y"
+            label={t.synergy.guestMenu}
+            payload={payload}
+            className="h-10 lg:hidden"
+          />
+          <Hop k={t.synergy.guestMenu} v={money(menuraPrice)} warn={!synced} />
+        </div>
       </div>
     </section>
   );
 }
 
-function Connector({ synced, label }: { synced: boolean; label: string }) {
+function Hop({ k, v, warn = false }: { k: string; v: string; warn?: boolean }) {
   return (
-    <div className="relative z-10 flex h-16 items-center justify-center lg:h-auto lg:min-h-40 lg:w-16">
-      <div
+    <div className="min-w-0 flex-1 px-2 py-3">
+      <p className="font-mono text-[10px] uppercase tracking-wider text-subtle">{k}</p>
+      <p
         className={cn(
-          "connector-track relative h-full w-px",
-          synced ? "is-live" : "is-open",
-        )}
-        aria-hidden="true"
-      >
-        {synced ? (
-          <>
-            <span className="connector-packet delay-0" />
-            <span className="connector-packet delay-1" />
-          </>
-        ) : null}
-      </div>
-      <div
-        className={cn(
-          "absolute flex size-14 items-center justify-center rounded-full shadow-hairline",
-          synced ? "bg-accent/15 text-accent" : "bg-elevated text-subtle",
+          "mt-1 font-display text-xl font-semibold tabular-nums",
+          warn ? "text-warn" : "text-fg",
         )}
       >
-        {synced ? <Link2 className="size-5" /> : <Link2Off className="size-5" />}
-        <span className="sr-only">{label}</span>
-      </div>
+        {v}
+      </p>
     </div>
   );
 }

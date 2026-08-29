@@ -257,39 +257,6 @@ html[dir="rtl"] .marquee-track {
   -webkit-text-fill-color: var(--color-fg);
 }
 
-.stream-panel {
-  background: color-mix(in oklab, var(--color-void) 74%, transparent);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  box-shadow: var(--shadow-hairline), var(--shadow-glow);
-}
-
-.stream-spark {
-  stroke-dasharray: 480;
-  stroke-dashoffset: 480;
-  animation: spark-draw 2.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-.stream-matrix {
-  display: none;
-  grid-template-columns: repeat(18, minmax(0, 1fr));
-  gap: 3px;
-}
-
-@media (min-width: 640px) and (min-height: 860px) {
-  .stream-matrix {
-    display: grid;
-  }
-}
-
-.stream-cell {
-  aspect-ratio: 1;
-  border-radius: 1px;
-  background: var(--color-accent);
-  opacity: 0.18;
-  animation: stream-cell 2.4s ease-in-out infinite;
-}
-
 @keyframes chroma-flow {
   0% {
     background-position: 200% 0;
@@ -299,50 +266,29 @@ html[dir="rtl"] .marquee-track {
   }
 }
 
-@keyframes spark-draw {
-  to {
-    stroke-dashoffset: 0;
-  }
+.packet-track {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  pointer-events: none;
 }
 
-@keyframes stream-cell {
-  0%,
-  100% {
-    opacity: 0.12;
-  }
-  40% {
-    opacity: 0.7;
-  }
+.packet-track.is-y {
+  width: 2px;
+  height: 100%;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .text-chroma {
-    animation: none;
-    background-position: 40% 0;
-  }
-  .stream-spark {
-    animation: none;
-    stroke-dashoffset: 0;
-  }
-  .stream-cell {
-    animation: none;
-    opacity: 0.28;
-  }
-  .connector-packet {
-    animation: none;
-    display: none;
-  }
+.packet-track.is-x {
+  height: 2px;
+  width: 100%;
 }
 
-.connector-track {
-  background: color-mix(in oklab, var(--color-subtle) 45%, transparent);
+.packet-track.is-live {
+  background: color-mix(in oklab, var(--color-accent) 70%, transparent);
+  box-shadow: 0 0 12px color-mix(in oklab, var(--color-accent) 28%, transparent);
 }
 
-.connector-track.is-live {
-  background: color-mix(in oklab, var(--color-accent) 55%, transparent);
-}
-
-.connector-track.is-open {
+.packet-track.is-open.is-y {
   background-image: repeating-linear-gradient(
     to bottom,
     color-mix(in oklab, var(--color-subtle) 50%, transparent) 0 4px,
@@ -351,20 +297,46 @@ html[dir="rtl"] .marquee-track {
   background-color: transparent;
 }
 
-.connector-packet {
+.packet-track.is-open.is-x {
+  background-image: repeating-linear-gradient(
+    to right,
+    color-mix(in oklab, var(--color-subtle) 50%, transparent) 0 4px,
+    transparent 4px 9px
+  );
+  background-color: transparent;
+}
+
+html[dir="rtl"] .packet-track.is-open.is-x {
+  background-image: repeating-linear-gradient(
+    to left,
+    color-mix(in oklab, var(--color-subtle) 50%, transparent) 0 4px,
+    transparent 4px 9px
+  );
+}
+
+.packet-dot {
   position: absolute;
-  left: 50%;
   width: 7px;
   height: 7px;
   border-radius: 999px;
   background: var(--color-accent);
   box-shadow: var(--shadow-glow);
-  transform: translate(-50%, -50%);
-  animation: packet-y 1.8s linear infinite;
 }
 
-.connector-packet.delay-1 {
-  animation-delay: 0.9s;
+.packet-track.is-y .packet-dot {
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: packet-y 1.7s linear infinite;
+}
+
+.packet-track.is-x .packet-dot {
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation: packet-x 1.7s linear infinite;
+}
+
+.packet-dot.delay-1 {
+  animation-delay: 0.85s;
 }
 
 @keyframes packet-y {
@@ -384,4 +356,30 @@ html[dir="rtl"] .marquee-track {
   }
 }
 
+@keyframes packet-x {
+  0% {
+    inset-inline-start: 6%;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    inset-inline-start: 94%;
+    opacity: 0;
+  }
+}
 
+@media (prefers-reduced-motion: reduce) {
+  .text-chroma {
+    animation: none;
+    background-position: 40% 0;
+  }
+  .packet-dot {
+    animation: none;
+    display: none;
+  }
+}

@@ -1,89 +1,71 @@
-import { useEffect, useState } from "react";
-import { useReducedMotion } from "motion/react";
+import { PacketLink } from "@/components/brand/PacketLink";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
-const SPARK =
-  "M0 26 C 18 26 28 8 46 14 C 64 20 74 6 92 11 C 110 16 122 26 140 12 C 158 0 176 20 200 9";
-
 export function DataStream() {
   const { t, locale } = useI18n();
-  const reduce = useReducedMotion();
-  const events = t.hero.stream.events;
-  const [offset, setOffset] = useState(0);
-
-  useEffect(() => {
-    if (reduce) return;
-    const id = window.setInterval(() => {
-      setOffset((n) => (n + 1) % events.length);
-    }, 1600);
-    return () => window.clearInterval(id);
-  }, [events.length, reduce]);
-
-  const visible = Array.from({ length: Math.min(3, events.length) }, (_, i) => {
-    const item = events[(offset + i) % events.length];
-    return { ...item, i };
-  });
+  const plane = t.hero.plane;
 
   return (
     <aside
-      className="stream-panel w-full overflow-hidden rounded-3xl p-4 sm:p-5"
-      aria-label={t.hero.stream.title}
+      className="w-full rounded-3xl bg-surface/80 p-4 shadow-hairline sm:p-5"
+      aria-label={plane.kicker}
     >
       <div className="flex items-center justify-between gap-3">
-        <div>
-          <p
-            className={cn(
-              "font-mono text-[10px] text-accent",
-              locale === "ar" ? "tracking-normal" : "uppercase tracking-[0.2em]",
-            )}
-          >
-            {t.hero.stream.kicker}
-          </p>
-          <p className="mt-1 font-mono text-xs text-fg">{t.hero.stream.title}</p>
-        </div>
-        <span className="inline-flex items-center gap-2 rounded-full bg-void/70 px-2.5 py-1 font-mono text-[10px] text-ok shadow-hairline">
+        <p
+          className={cn(
+            "font-mono text-[10px] text-accent",
+            locale === "ar" ? "tracking-normal" : "uppercase tracking-[0.2em]",
+          )}
+        >
+          {plane.kicker}
+        </p>
+        <span className="inline-flex items-center gap-2 rounded-full bg-void px-2.5 py-1 font-mono text-[10px] text-ok shadow-hairline">
           <span className="pulse-dot size-1.5 rounded-full bg-ok" />
-          {t.hero.stream.status}
+          {plane.live}
         </span>
       </div>
 
-      <svg
-        viewBox="0 0 200 36"
-        className="mt-4 h-10 w-full text-accent"
-        aria-hidden="true"
-      >
-        <path
-          d={SPARK}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          className="stream-spark"
-        />
-      </svg>
-
-      <div className="stream-matrix mt-3" aria-hidden="true">
-        {Array.from({ length: 54 }, (_, i) => (
-          <span
-            key={i}
-            className="stream-cell"
-            style={{ animationDelay: `${(i % 14) * 0.11}s`, animationDuration: `${1.8 + (i % 5) * 0.25}s` }}
-          />
-        ))}
+      <div className="mt-4 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center md:hidden">
+        <Node name="Costora" hint={plane.hopFrom} />
+        <PacketLink live axis="x" label={plane.hop} payload={plane.hop} />
+        <Node name="Menura" hint={plane.hopTo} />
+        <Node name="EasyRoom" hint={plane.open} muted />
+        <PacketLink live={false} axis="x" label={plane.open} />
+        <Node name="Ledger" hint={plane.open} muted />
       </div>
 
-      <ul className="mt-4 space-y-2">
-        {visible.map((row) => (
-          <li
-            key={`${row.ch}-${row.i}-${offset}`}
-            className="flex items-baseline gap-3 font-mono text-[11px] leading-relaxed"
-          >
-            <span className="shrink-0 text-accent">{row.ch}</span>
-            <span className="min-w-0 truncate text-muted">{row.msg}</span>
-          </li>
-        ))}
-      </ul>
+      <div className="mt-4 hidden items-center md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1fr)]">
+        <Node name="Costora" hint={plane.hopFrom} />
+        <PacketLink live axis="x" label={plane.hop} payload={plane.hop} />
+        <Node name="Menura" hint={plane.hopTo} />
+        <PacketLink live={false} axis="x" label={plane.open} />
+        <Node name="EasyRoom" hint={plane.open} muted />
+        <PacketLink live={false} axis="x" label={plane.open} />
+        <Node name="Ledger" hint={plane.open} muted />
+      </div>
     </aside>
+  );
+}
+
+function Node({
+  name,
+  hint,
+  muted = false,
+}: {
+  name: string;
+  hint: string;
+  muted?: boolean;
+}) {
+  return (
+    <div
+      className={cn(
+        "rounded-2xl bg-void/55 px-3 py-3 shadow-hairline",
+        muted && "opacity-75",
+      )}
+    >
+      <p className="font-display text-sm font-semibold text-fg">{name}</p>
+      <p className="mt-0.5 font-mono text-[10px] text-subtle">{hint}</p>
+    </div>
   );
 }
